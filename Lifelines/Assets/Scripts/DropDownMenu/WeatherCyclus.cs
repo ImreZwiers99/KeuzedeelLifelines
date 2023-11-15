@@ -7,6 +7,7 @@ public class WeatherCyclus : MonoBehaviour
     public string[] items;
     public Material[] skyboxes;
     public GameObject[] gameObjects;
+    public Light directionalLight;
 
     private int currentIndex = 0;
 
@@ -46,6 +47,9 @@ public class WeatherCyclus : MonoBehaviour
                 gameObjects[i].SetActive(false);
             }
         }
+
+        if (currentIndex == 0) directionalLight.color = Color.white;
+        else if(currentIndex == 1) directionalLight.color = Color.black;
     }
 
     public void MoveLeft()

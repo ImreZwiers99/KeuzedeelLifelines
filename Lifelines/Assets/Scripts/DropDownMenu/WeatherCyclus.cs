@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class WeatherCyclus : MonoBehaviour
 {
@@ -9,7 +10,12 @@ public class WeatherCyclus : MonoBehaviour
     public GameObject[] gameObjects;
     public Light directionalLight;
 
-    private int currentIndex = 0;
+    private int currentIndex = 0, randomAnimNumber;
+
+    public Animator player_Animator;
+    public NavMeshAgent navMeshAgent;
+
+    private bool idleToggleBool = false;
 
     private void Start()
     {
@@ -49,7 +55,34 @@ public class WeatherCyclus : MonoBehaviour
         }
 
         if (currentIndex == 0) directionalLight.color = Color.white;
-        else if(currentIndex == 1) directionalLight.color = Color.black;
+        else if (currentIndex == 1) directionalLight.color = Color.black;
+
+        if (idleToggleBool)
+		{
+            if (currentIndex == 0)
+            {
+                player_Animator.SetInteger("Sad", 0);
+                player_Animator.SetInteger("Happy", randomAnimNumber);
+            }
+            else if (currentIndex == 1)
+            {
+                player_Animator.SetInteger("Happy", 0);
+                player_Animator.SetInteger("Sad", randomAnimNumber);
+            }
+        }
+		else if (!idleToggleBool)
+		{
+            if (currentIndex == 0)
+            {
+                player_Animator.SetInteger("Happy", 0);
+                player_Animator.SetInteger("Sad", 0);
+            }
+            else if (currentIndex == 1)
+            {
+                player_Animator.SetInteger("Happy", 3);
+                player_Animator.SetInteger("Sad", 3);
+            }
+        }
     }
 
     public void MoveLeft()
@@ -67,4 +100,38 @@ public class WeatherCyclus : MonoBehaviour
         UpdateSkybox();
         UpdateGameObjects();
     }
+
+    public void IdleOnlyToggle(bool idleToggle)
+	{
+        idleToggleBool = idleToggle;
+        if (idleToggle)
+		{
+            navMeshAgent.speed = 0;
+            randomAnimNumber = Random.Range(1, 3);
+            if (currentIndex == 0)
+			{
+                player_Animator.SetInteger("Sad", 0);
+                player_Animator.SetInteger("Happy", randomAnimNumber);
+            }
+            else if(currentIndex == 1)
+			{
+                player_Animator.SetInteger("Happy", 0);
+                player_Animator.SetInteger("Sad", randomAnimNumber);
+            }
+        }
+		else
+		{
+            navMeshAgent.speed = 2;
+            if (currentIndex == 0)
+			{
+                player_Animator.SetInteger("Happy", 0);
+                player_Animator.SetInteger("Sad", 0);
+            }
+            else if (currentIndex == 1)
+			{
+                player_Animator.SetInteger("Happy", 3);
+                player_Animator.SetInteger("Sad", 3);
+            }
+        }
+	}
 }

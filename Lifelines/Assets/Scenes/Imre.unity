@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 147782787}
-  m_IndirectSpecularColor: {r: 0.14710939, g: 0.36371484, b: 0.5796322, a: 1}
+  m_IndirectSpecularColor: {r: 0.1470142, g: 0.3640541, b: 0.57997215, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1193,7 +1193,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1072757721}
   m_LocalRotation: {x: -0, y: 0.5445783, z: -0, w: 0.83871}
-  m_LocalPosition: {x: 42.3, y: -4.1, z: -1.7}
+  m_LocalPosition: {x: 31.3, y: -4.1, z: -9}
   m_LocalScale: {x: 58.491, y: 9.998, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2143,7 +2143,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1710172063}
   m_LocalRotation: {x: -0, y: 0.98940134, z: -0, w: 0.14520669}
-  m_LocalPosition: {x: 32.3, y: -4.1, z: -27.6}
+  m_LocalPosition: {x: 13.6, y: -4.1, z: -24.9}
   m_LocalScale: {x: 58.491, y: 9.998, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2437,7 +2437,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1901536591}
   m_LocalRotation: {x: -0, y: 0.7462658, z: -0, w: -0.66564816}
-  m_LocalPosition: {x: -16.7, y: -4.1, z: -0.5}
+  m_LocalPosition: {x: -0.9, y: -4.1, z: -2.4}
   m_LocalScale: {x: 58.491, y: 9.998, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2611,7 +2611,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1956146150}
   m_LocalRotation: {x: -0, y: 0.91596013, z: -0, w: -0.40126932}
-  m_LocalPosition: {x: -3.6, y: -4.1, z: -25.8}
+  m_LocalPosition: {x: -2.8, y: -4.1, z: -19.2}
   m_LocalScale: {x: 58.491, y: 9.998, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2708,7 +2708,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2009451573}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.3, y: -4.1, z: 11.8}
+  m_LocalPosition: {x: 7.3, y: -4.1, z: 2.8}
   m_LocalScale: {x: 58.491, y: 9.998, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3085,8 +3085,8 @@ GameObject:
   m_Name: roof_intersection2.009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!33 &183207345795028136
 MeshFilter:
@@ -3161,8 +3161,8 @@ GameObject:
   m_Name: wall_wood_2m_3.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!33 &345123303361353634
 MeshFilter:
@@ -3187,8 +3187,8 @@ GameObject:
   m_Name: wooden_post_mezzanine_ground.016
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &488605289731756029
 MeshRenderer:
@@ -18084,8 +18084,8 @@ GameObject:
   m_Name: wall_wood_2m_1.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!33 &890711605474741252
 MeshFilter:
@@ -18125,8 +18125,8 @@ GameObject:
   m_Name: wooden_post_rock_corner_concave.027
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1026835329479927013
 GameObject:
@@ -18143,8 +18143,8 @@ GameObject:
   m_Name: floor.120
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &1071917420747607363
 MeshRenderer:
@@ -18203,8 +18203,8 @@ GameObject:
   m_Name: floor.117
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1093019224621647589
 GameObject:
@@ -18221,8 +18221,8 @@ GameObject:
   m_Name: wall_wood_entry_1m_1.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1254941838846667182
 GameObject:
@@ -18239,8 +18239,8 @@ GameObject:
   m_Name: floor_rock.030
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &1302701471688536298
 MeshRenderer:
@@ -18314,8 +18314,8 @@ GameObject:
   m_Name: floor.113
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!33 &1376278193432999212
 MeshFilter:
@@ -18382,8 +18382,8 @@ GameObject:
   m_Name: floor.118
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &1465377678056527807
 MeshRenderer:
@@ -18442,8 +18442,8 @@ GameObject:
   m_Name: floor.104
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &1592394842234485416
 MeshRenderer:
@@ -18510,8 +18510,8 @@ GameObject:
   m_Name: floor.115
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &1719133747673500957
 MeshRenderer:
@@ -18585,8 +18585,8 @@ GameObject:
   m_Name: wooden_post_mezzanine_ground.015
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!33 &1840048378530083836
 MeshFilter:
@@ -18611,8 +18611,8 @@ GameObject:
   m_Name: roof_front_narrow.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1980250329159975799
 Transform:
@@ -18717,8 +18717,8 @@ GameObject:
   m_Name: wall_wood_2m_2.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!33 &2159133608134640446
 MeshFilter:
@@ -33332,8 +33332,8 @@ GameObject:
   m_Name: wooden_post_mezzanine_ground.018
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!33 &2446497425485196128
 MeshFilter:
@@ -33373,8 +33373,8 @@ GameObject:
   m_Name: wooden_post_rock_corner_concave.032
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &2540173771788947342
 MeshRenderer:
@@ -33449,8 +33449,8 @@ GameObject:
   m_Name: wall_wood_2m_2.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!33 &2714260964418713309
 MeshFilter:
@@ -33475,8 +33475,8 @@ GameObject:
   m_Name: floor_rock.028
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &2795223242285578652
 MeshRenderer:
@@ -33733,8 +33733,8 @@ GameObject:
   m_Name: roof_wide3.013
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &3083624065895553662
 Transform:
@@ -33797,8 +33797,8 @@ GameObject:
   m_Name: floor.121
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &3229587624776513094
 Transform:
@@ -33965,8 +33965,8 @@ GameObject:
   m_Name: floor.105
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &3388151008224193828
 MeshRenderer:
@@ -34204,8 +34204,8 @@ GameObject:
   m_Name: floor_rock.027
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &3853779393140370182
 Transform:
@@ -34237,8 +34237,8 @@ GameObject:
   m_Name: lamppost.009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &3878082960786396589
 Transform:
@@ -34270,8 +34270,8 @@ GameObject:
   m_Name: wooden_bucket.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &3962223000970352284
 GameObject:
@@ -34288,8 +34288,8 @@ GameObject:
   m_Name: floor_rock.029
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4082921427461665316
 Transform:
@@ -34386,8 +34386,8 @@ GameObject:
   m_Name: floor_rock.024
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &4210098704241852776
 MeshRenderer:
@@ -34469,8 +34469,8 @@ GameObject:
   m_Name: chimney.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &4339201809911956446
 GameObject:
@@ -34487,8 +34487,8 @@ GameObject:
   m_Name: wall_wood_window_2m_1.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!33 &4343196017100439857
 MeshFilter:
@@ -34513,8 +34513,8 @@ GameObject:
   m_Name: wooden_post_mezzanine_ground.017
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!33 &4418547682613826461
 MeshFilter:
@@ -34554,8 +34554,8 @@ GameObject:
   m_Name: wall_wood_2m_2.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!33 &4611183911686065334
 MeshFilter:
@@ -34622,8 +34622,8 @@ GameObject:
   m_Name: wall_wood_1m_2.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!33 &4724269040793713695
 MeshFilter:
@@ -34798,8 +34798,8 @@ GameObject:
   m_Name: roof_narrow3.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &4908059124506846937
 MeshRenderer:
@@ -35022,8 +35022,8 @@ GameObject:
   m_Name: wall_wood_2m_3.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &5171134182923178883
 Transform:
@@ -35055,8 +35055,8 @@ GameObject:
   m_Name: wooden_bucket.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!33 &5240098671065136115
 MeshFilter:
@@ -35184,8 +35184,8 @@ GameObject:
   m_Name: wooden_post_rock_corner_concave.028
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &5446016686072419533
 MeshRenderer:
@@ -35301,8 +35301,8 @@ GameObject:
   m_Name: roof_end_wide.014
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &5595947240984570487
 GameObject:
@@ -35319,8 +35319,8 @@ GameObject:
   m_Name: roof_dormer.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &5621489920944405593
 MeshRenderer:
@@ -35636,8 +35636,8 @@ GameObject:
   m_Name: floor.116
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &6346574350885693344
 Transform:
@@ -35699,8 +35699,8 @@ GameObject:
   m_Name: wooden_post_rock_corner_concave.031
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!33 &6572065000071542951
 MeshFilter:
@@ -35725,8 +35725,8 @@ GameObject:
   m_Name: sign_board.008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &6587755594712429731
 MeshRenderer:
@@ -35815,8 +35815,8 @@ GameObject:
   m_Name: floor_rock.031
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!33 &6653520683605772301
 MeshFilter:
@@ -35940,8 +35940,8 @@ GameObject:
   m_Name: wall_wood_2m_3.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &6732858268963356704
 MeshRenderer:
@@ -36107,8 +36107,8 @@ GameObject:
   m_Name: wooden_post_rock_corner_concave.029
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &7094543447539784771
 GameObject:
@@ -36125,8 +36125,8 @@ GameObject:
   m_Name: wall_wood_1m_2.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &7097499475235332204
 GameObject:
@@ -36143,8 +36143,8 @@ GameObject:
   m_Name: roof_wide3.012
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &7164839934237030079
 Transform:
@@ -36298,8 +36298,8 @@ GameObject:
   m_Name: wall_wood_2m_2.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &7381053869785393575
 GameObject:
@@ -36316,8 +36316,8 @@ GameObject:
   m_Name: floor.112
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &7443341791521075813
 Transform:
@@ -36395,8 +36395,8 @@ GameObject:
   m_Name: wall_wood_2m_2.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &7608590172664549578
 MeshRenderer:
@@ -36582,8 +36582,8 @@ GameObject:
   m_Name: wall_wood_1m_2.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &7985562417919448591
 MeshRenderer:
@@ -36642,8 +36642,8 @@ GameObject:
   m_Name: floor.114
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &8072837138221269586
 Transform:
@@ -36675,8 +36675,8 @@ GameObject:
   m_Name: stairs.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &8186587160779248956
 MeshRenderer:
@@ -36735,8 +36735,8 @@ GameObject:
   m_Name: floor.119
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &8201065760330250606
 GameObject:
@@ -36753,8 +36753,8 @@ GameObject:
   m_Name: wall_wood_window_2m_1.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &8233923430843726899
 MeshRenderer:
@@ -51629,8 +51629,8 @@ GameObject:
   m_Name: wooden_post_rock_corner_concave.030
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &9027911773641863604
 Transform:

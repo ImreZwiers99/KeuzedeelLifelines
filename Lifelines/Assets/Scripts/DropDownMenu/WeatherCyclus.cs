@@ -59,6 +59,7 @@ public class WeatherCyclus : MonoBehaviour
 
         if (idleToggleBool)
 		{
+            navMeshAgent.speed = 0;
             if (currentIndex == 0)
             {
                 player_Animator.SetInteger("Sad", 0);
@@ -76,11 +77,13 @@ public class WeatherCyclus : MonoBehaviour
             {
                 player_Animator.SetInteger("Happy", 0);
                 player_Animator.SetInteger("Sad", 0);
+                navMeshAgent.speed = 2;
             }
             else if (currentIndex == 1)
             {
                 player_Animator.SetInteger("Happy", 3);
                 player_Animator.SetInteger("Sad", 3);
+                navMeshAgent.speed = 1;
             }
         }
     }
@@ -121,14 +124,15 @@ public class WeatherCyclus : MonoBehaviour
         }
 		else
 		{
-            navMeshAgent.speed = 2;
             if (currentIndex == 0)
 			{
+                navMeshAgent.speed = 2;
                 player_Animator.SetInteger("Happy", 0);
                 player_Animator.SetInteger("Sad", 0);
             }
             else if (currentIndex == 1)
 			{
+                navMeshAgent.speed = 1;
                 player_Animator.SetInteger("Happy", 3);
                 player_Animator.SetInteger("Sad", 3);
             }

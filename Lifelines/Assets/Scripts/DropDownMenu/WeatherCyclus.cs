@@ -17,7 +17,7 @@ public class WeatherCyclus : MonoBehaviour
 
     private bool idleToggleBool = false;
 
-    public GameObject showCamPanel;
+    public GameObject showCamPanel, showCamera;
 
     public Toggle showCamPanelToggle;
 
@@ -145,7 +145,15 @@ public class WeatherCyclus : MonoBehaviour
 
     public void ShowCamToggleLogic()
 	{
-        if(showCamPanelToggle.isOn == true) showCamPanel.SetActive(true);
-        else showCamPanel.SetActive(false);
+        if(showCamPanelToggle.isOn == true)
+		{
+            showCamPanel.SetActive(true);
+            showCamera.SetActive(true);
+        }
+		else
+		{
+            showCamPanel.SetActive(false);
+            showCamera.SetActive(false);
+        }
 	}
 }

@@ -7,6 +7,7 @@ public class WeatherCyclus : MonoBehaviour
     public Text displayText;
     public string[] items;
     public Material[] skyboxes;
+    public GameObject[] emoticons;
     public GameObject[] gameObjects;
     public Light directionalLight;
 
@@ -51,10 +52,12 @@ public class WeatherCyclus : MonoBehaviour
             if (i == currentIndex)
             {
                 gameObjects[i].SetActive(true);
+                emoticons[i].SetActive(true);
             }
             else
             {
                 gameObjects[i].SetActive(false);
+                emoticons[i].SetActive(false);
             }
         }
 

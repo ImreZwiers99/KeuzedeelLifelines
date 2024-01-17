@@ -448,7 +448,7 @@ GameObject:
   - component: {fileID: 252278496}
   - component: {fileID: 252278495}
   m_Layer: 0
-  m_Name: KopTekstPage1
+  m_Name: KopTekstPageEmotions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

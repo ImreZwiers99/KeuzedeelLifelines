@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
-using TMPro;
+using UnityEngine.UI; // For UI Toggle
+using TMPro; // For TextMeshPro
 
 public class InstantiateZipcodes : MonoBehaviour
 {
@@ -19,8 +19,8 @@ public class InstantiateZipcodes : MonoBehaviour
     }
 
     public string jsonFilePath = "Assets/json/csvjson.json";
-
     public GameObject zipcodePrefab;
+    public Toggle scaleToggle; // Reference to the UI Toggle
 
     private Dictionary<int, string> zipcodeCityMap = new Dictionary<int, string>
     {
@@ -56,6 +56,8 @@ public class InstantiateZipcodes : MonoBehaviour
         { 9406, "Peelo" }
     };
 
+    private List<GameObject> zipcodeObjects = new List<GameObject>();
+
     void Start()
     {
         if (zipcodePrefab == null)
@@ -64,13 +66,19 @@ public class InstantiateZipcodes : MonoBehaviour
             return;
         }
 
-        if (!File.Exists(jsonFilePath))
+        if (scaleToggle == null)
+        {
+            Debug.LogError("No Toggle assigned to 'scaleToggle' in the Inspector.");
+            return;
+        }
+
+        if (!System.IO.File.Exists(jsonFilePath))
         {
             Debug.LogError($"JSON file not found at: {jsonFilePath}");
             return;
         }
 
-        string jsonContent = File.ReadAllText(jsonFilePath);
+        string jsonContent = System.IO.File.ReadAllText(jsonFilePath);
         ZipcodeList zipcodeList = JsonUtility.FromJson<ZipcodeList>("{\"data\":" + jsonContent + "}");
 
         Vector3 startPosition = new Vector3(0, 0, 0);
@@ -84,6 +92,9 @@ public class InstantiateZipcodes : MonoBehaviour
             InstantiateZipcodeGameObject(zipcodeData, position);
             index++;
         }
+
+        // Add listener to toggle
+        scaleToggle.onValueChanged.AddListener(OnToggleValueChanged);
     }
 
     void InstantiateZipcodeGameObject(ZipcodeData zipcodeData, Vector3 position)
@@ -91,6 +102,7 @@ public class InstantiateZipcodes : MonoBehaviour
         float ageValue = float.Parse(zipcodeData.AGE_T1.Replace(',', '.'));
 
         GameObject zipcodeObject = Instantiate(zipcodePrefab, position, Quaternion.identity, transform);
+        zipcodeObjects.Add(zipcodeObject);
 
         string cityName = zipcodeCityMap.ContainsKey(zipcodeData.ZIPCODE)
             ? zipcodeCityMap[zipcodeData.ZIPCODE]
@@ -98,24 +110,35 @@ public class InstantiateZipcodes : MonoBehaviour
 
         zipcodeObject.name = $"{cityName} (ZIPCODE: {zipcodeData.ZIPCODE})";
 
-        Debug.Log($"Instantiated prefab for ZIPCODE: {zipcodeData.ZIPCODE} at position {position}");
-
         TextMeshPro textMesh = zipcodeObject.GetComponentInChildren<TextMeshPro>();
         if (textMesh != null)
         {
             textMesh.text = $"{cityName}\nZIPCODE: {zipcodeData.ZIPCODE}";
-            Debug.Log($"Set TextMeshPro text for ZIPCODE: {zipcodeData.ZIPCODE}");
-        }
-        else
-        {
-            Debug.LogWarning($"No TextMeshPro component found in prefab for ZIPCODE: {zipcodeData.ZIPCODE}");
         }
 
-        Vector3 scale = zipcodeObject.transform.localScale;
-        scale.y = ageValue / 250f;
-        zipcodeObject.transform.localScale = scale;
-
-        Debug.Log($"Scaled prefab for {cityName} (ZIPCODE: {zipcodeData.ZIPCODE}) with AGE_T1: {zipcodeData.AGE_T1}");
+        // Store the original scale
+        zipcodeObject.transform.localScale = new Vector3(1, 1, 1);
     }
 
+    void OnToggleValueChanged(bool isScaled)
+    {
+        foreach (var zipcodeObject in zipcodeObjects)
+        {
+            float ageValue = float.Parse(zipcodeObject.name.Split('(')[1].Split(':')[1].Replace(")", "").Trim());
+            Vector3 scale = zipcodeObject.transform.localScale;
+
+            if (isScaled)
+            {
+                // Scale based on AGE_T1
+                scale.y = ageValue / 250f;
+            }
+            else
+            {
+                // Reset to original scale
+                scale.y = 1f;
+            }
+
+            zipcodeObject.transform.localScale = scale;
+        }
+    }
 }

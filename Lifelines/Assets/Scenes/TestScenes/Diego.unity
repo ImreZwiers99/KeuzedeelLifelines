@@ -24467,8 +24467,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0532924140863334a887e49299ccf22b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  moveLimits: {x: 50, y: 50}
+  moveSpeed: 15
+  moveLimits: {x: 65, y: 200}
   mouseSensitivity: 100
   maxVerticalAngle: 80
 --- !u!1 &736607467

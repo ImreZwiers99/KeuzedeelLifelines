@@ -24,6 +24,9 @@ public class InstantiateZipcodes : MonoBehaviour
     public Toggle scaleToggle;
     public Toggle disableChildToggle;
 
+    private float minAge;
+    private float maxAge;
+
     private Dictionary<int, string> zipcodeCityMap = new Dictionary<int, string>
     {
         { 7741, "Hardenberg" },
@@ -83,18 +86,25 @@ public class InstantiateZipcodes : MonoBehaviour
         string jsonContent = System.IO.File.ReadAllText(jsonFilePath);
         ZipcodeList zipcodeList = JsonUtility.FromJson<ZipcodeList>("{\"data\":" + jsonContent + "}");
 
-        // Find the lowest and highest HEIGHT_T1 values
         float minHeight = float.MaxValue;
         float maxHeight = float.MinValue;
+        minAge = float.MaxValue;
+        maxAge = float.MinValue;
 
         foreach (var zipcodeData in zipcodeList.data)
         {
             float heightValue = float.Parse(zipcodeData.HEIGHT_T1.Replace(',', '.'));
+            float ageValue = float.Parse(zipcodeData.AGE_T1.Replace(',', '.'));
+
             if (heightValue < minHeight) minHeight = heightValue;
             if (heightValue > maxHeight) maxHeight = heightValue;
+
+            if (ageValue < minAge) minAge = ageValue;
+            if (ageValue > maxAge) maxAge = ageValue;
         }
 
         Debug.Log($"Min Height: {minHeight}, Max Height: {maxHeight}");
+        Debug.Log($"Min Age: {minAge}, Max Age: {maxAge}");
 
         Vector3 startPosition = new Vector3(0, 0, 0);
         float xOffset = 10f;
@@ -108,15 +118,14 @@ public class InstantiateZipcodes : MonoBehaviour
             index++;
         }
 
-        // Ensure listeners are set up correctly with lambda for passing min/max
         scaleToggle.onValueChanged.AddListener(isScaled => OnScaleToggleChanged(isScaled, minHeight, maxHeight));
         disableChildToggle.onValueChanged.AddListener(OnDisableChildToggleChanged);
     }
 
     void InstantiateZipcodeGameObject(ZipcodeData zipcodeData, Vector3 position)
     {
-        float heightValue = float.Parse(zipcodeData.HEIGHT_T1.Replace(',', '.')); // Convert to cm
-        float ageValue = float.Parse(zipcodeData.AGE_T1.Replace(',', '.')) / 100f; // Keep as readable decimal
+        float heightValue = float.Parse(zipcodeData.HEIGHT_T1.Replace(',', '.'));
+        float ageValue = float.Parse(zipcodeData.AGE_T1.Replace(',', '.'));
 
         GameObject zipcodeObject = Instantiate(zipcodePrefab, position, Quaternion.identity, transform);
 
@@ -129,20 +138,16 @@ public class InstantiateZipcodes : MonoBehaviour
         TextMeshPro textMesh = zipcodeObject.GetComponentInChildren<TextMeshPro>();
         if (textMesh != null)
         {
-            // Show only the city name initially
             textMesh.text = $"{cityName}";
         }
 
         zipcodeObjects.Add((zipcodeObject, heightValue, ageValue));
 
-        // Set the initial unscaled size
         zipcodeObject.transform.localScale = new Vector3(1, 1, 1);
     }
 
     void OnScaleToggleChanged(bool isScaled, float minHeight, float maxHeight)
     {
-        Debug.Log($"Scale Toggle Changed: {isScaled}");
-
         foreach (var (zipcodeObject, heightValue, _) in zipcodeObjects)
         {
             Vector3 scale = zipcodeObject.transform.localScale;
@@ -150,28 +155,18 @@ public class InstantiateZipcodes : MonoBehaviour
             TextMeshPro textMesh = zipcodeObject.GetComponentInChildren<TextMeshPro>();
             if (isScaled)
             {
-                // Normalize the height value between minHeight and maxHeight to a scale of 1 to 2
                 float normalizedScale = Mathf.Lerp(1f, 2f, (heightValue - minHeight) / (maxHeight - minHeight));
                 scale.y = normalizedScale;
 
-                // Debugging for scaling
-                Debug.Log($"ZipcodeObject: {zipcodeObject.name}, HeightValue: {heightValue}, NormalizedScale: {normalizedScale}");
-
-                // Update text to include height
                 if (textMesh != null)
                 {
-                    textMesh.text += $"\nHeight: {heightValue / 100f:F2} cm"; // Convert to cm
+                    textMesh.text += $"\nHeight: {heightValue / 100f:F2} cm";
                 }
             }
             else
             {
-                // Reset to original scale
                 scale.y = 1f;
 
-                // Debugging for resetting scale
-                Debug.Log($"ZipcodeObject: {zipcodeObject.name} scale reset.");
-
-                // Remove height text
                 if (textMesh != null)
                 {
                     textMesh.text = textMesh.text.Replace($"\nHeight: {heightValue / 100f:F2} cm", "");
@@ -186,11 +181,31 @@ public class InstantiateZipcodes : MonoBehaviour
     {
         foreach (var (zipcodeObject, _, ageValue) in zipcodeObjects)
         {
-            // Find the child object and toggle its active state
-            Transform childObject = zipcodeObject.transform.GetChild(0); // Assuming the child is the first in the hierarchy
-            if (childObject != null)
+            Transform firstChild = zipcodeObject.transform.GetChild(0);
+            if (firstChild != null)
             {
-                childObject.gameObject.SetActive(!isDisabled);
+                firstChild.gameObject.SetActive(!isDisabled);
+            }
+
+            Transform secondChild = zipcodeObject.transform.GetChild(1);
+            if (secondChild != null)
+            {
+                secondChild.gameObject.SetActive(isDisabled);
+
+                if (isDisabled)
+                {
+                    float normalizedAge = (ageValue - minAge) / (maxAge - minAge);
+
+                    Color interpolatedColor = Color.Lerp(Color.green, Color.red, normalizedAge);
+
+                    Renderer renderer = secondChild.GetComponent<Renderer>();
+                    if (renderer != null)
+                    {
+                        Material newMaterial = new Material(renderer.sharedMaterial);
+                        newMaterial.color = interpolatedColor;
+                        renderer.material = newMaterial;
+                    }
+                }
             }
 
             TextMeshPro textMesh = zipcodeObject.GetComponentInChildren<TextMeshPro>();
@@ -198,13 +213,11 @@ public class InstantiateZipcodes : MonoBehaviour
             {
                 if (isDisabled)
                 {
-                    // Add age to the text
-                    textMesh.text += $"\nAge: {ageValue:F2} years";
+                    textMesh.text += $"\nAge: {ageValue / 100f:F2} jaar";
                 }
                 else
                 {
-                    // Remove age from the text
-                    textMesh.text = textMesh.text.Replace($"\nAge: {ageValue:F2} years", "");
+                    textMesh.text = textMesh.text.Replace($"\nAge: {ageValue / 100f:F2} jaar", "");
                 }
             }
         }

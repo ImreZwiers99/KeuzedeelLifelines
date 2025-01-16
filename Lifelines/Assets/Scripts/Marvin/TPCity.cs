@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -5,10 +6,11 @@ using UnityEngine;
 
 public class TPCity : MonoBehaviour
 {
-    public Camera Camera;
+    public Camera mainCamera;
     public TMP_InputField inputField;
-    public Transform cityTree;
-    public string city;
+
+    private Transform snapPoint, cityTree;
+    private string city;
 
     private void Start()
     {
@@ -17,13 +19,16 @@ public class TPCity : MonoBehaviour
 
     private void Update()
     {
-        city = inputField.text.ToLower();
+        city = inputField.text;
     }
 
     public void TpToCity()
     {
+        CamRotationJoystick.currentRotation = new Vector3(50, 0, mainCamera.transform.rotation.z);
+
         cityTree = GameObject.Find(city).transform;
-        
-        Camera.transform.position = Vector3.Lerp(Camera.transform.position, cityTree.position, Time.deltaTime);
+        snapPoint = cityTree.FindChild("SnapPoint");
+
+        mainCamera.transform.position = snapPoint.position;
     }
 }

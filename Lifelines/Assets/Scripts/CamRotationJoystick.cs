@@ -9,8 +9,9 @@ public class CamRotationJoystick : MonoBehaviour
     public float moveSpeed;
     public Transform mainCamera;
 
-    private Vector3 currentRotation;
+    public static Vector3 currentRotation;
 
+    public static float horizontalInput, verticalInput;
     // Update is called once per frame
     void Update()
     {
@@ -19,8 +20,8 @@ public class CamRotationJoystick : MonoBehaviour
 
     private void RotationLogic()
     {
-        float horizontalInput = joystickRotation.Horizontal;
-        float verticalInput = joystickRotation.Vertical;
+        horizontalInput = joystickRotation.Horizontal;
+        verticalInput = joystickRotation.Vertical;
 
         Vector3 rotationInput = new Vector3(-verticalInput, horizontalInput, 0);
 

@@ -61,7 +61,7 @@ public class InstantiateZipcodes : MonoBehaviour
         { 9406, "Peelo" }
     };
 
-    private List<(GameObject, float, float)> zipcodeObjects = new List<(GameObject, float, float)>();
+    public List<(GameObject, float, float)> zipcodeObjects = new List<(GameObject, float, float)>();
 
     void Start()
     {
@@ -133,7 +133,7 @@ public class InstantiateZipcodes : MonoBehaviour
             ? zipcodeCityMap[zipcodeData.ZIPCODE]
             : "Unknown City";
 
-        zipcodeObject.name = $"{cityName} (ZIPCODE: {zipcodeData.ZIPCODE})";
+        zipcodeObject.name = $"{cityName}";
 
         TextMeshPro textMesh = zipcodeObject.GetComponentInChildren<TextMeshPro>();
         if (textMesh != null)

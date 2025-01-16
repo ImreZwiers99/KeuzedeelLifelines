@@ -18,8 +18,8 @@ public class CameraController : MonoBehaviour
         startPosition = transform.position;
 
         // Verberg en vergrendel de cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
     }
 
     void Update()

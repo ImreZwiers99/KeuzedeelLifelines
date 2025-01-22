@@ -30421,10 +30421,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a7199f6b692c945b9bc89b2553c3ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Camera: {fileID: 0}
-  inputField: {fileID: 0}
-  cityTree: {fileID: 0}
-  city: 
+  mainCamera: {fileID: 1199588275}
+  inputField: {fileID: 2064459709}
 --- !u!1 &812013861
 GameObject:
   m_ObjectHideFlags: 0

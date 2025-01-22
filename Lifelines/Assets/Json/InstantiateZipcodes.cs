@@ -21,13 +21,16 @@ public class InstantiateZipcodes : MonoBehaviour
 
     public string jsonFilePath = "Assets/json/csvjson.json";
     public GameObject zipcodePrefab;
-    public Toggle scaleToggle;
-    public Toggle disableChildToggle;
 
-    private float minAge;
-    private float maxAge;
+    [HideInInspector]
+    public List<(GameObject, float, float)> zipcodeObjects = new List<(GameObject, float, float)>();
 
-    private Dictionary<int, string> zipcodeCityMap = new Dictionary<int, string>
+    [HideInInspector]
+    public float minHeight = float.MaxValue, maxHeight = float.MinValue;
+    [HideInInspector]
+    public float minAge = float.MaxValue, maxAge = float.MinValue;
+
+    public Dictionary<int, string> zipcodeCityMap = new Dictionary<int, string>
     {
         { 7741, "Hardenberg" },
         { 7742, "Heemse" },
@@ -61,19 +64,11 @@ public class InstantiateZipcodes : MonoBehaviour
         { 9406, "Peelo" }
     };
 
-    public List<(GameObject, float, float)> zipcodeObjects = new List<(GameObject, float, float)>();
-
     void Start()
     {
         if (zipcodePrefab == null)
         {
             Debug.LogError("No prefab assigned to 'zipcodePrefab' in the Inspector.");
-            return;
-        }
-
-        if (scaleToggle == null || disableChildToggle == null)
-        {
-            Debug.LogError("One or more toggles are not assigned in the Inspector.");
             return;
         }
 
@@ -86,8 +81,8 @@ public class InstantiateZipcodes : MonoBehaviour
         string jsonContent = System.IO.File.ReadAllText(jsonFilePath);
         ZipcodeList zipcodeList = JsonUtility.FromJson<ZipcodeList>("{\"data\":" + jsonContent + "}");
 
-        float minHeight = float.MaxValue;
-        float maxHeight = float.MinValue;
+        minHeight = float.MaxValue;
+        maxHeight = float.MinValue;
         minAge = float.MaxValue;
         maxAge = float.MinValue;
 
@@ -117,9 +112,6 @@ public class InstantiateZipcodes : MonoBehaviour
             InstantiateZipcodeGameObject(zipcodeData, position);
             index++;
         }
-
-        scaleToggle.onValueChanged.AddListener(isScaled => OnScaleToggleChanged(isScaled, minHeight, maxHeight));
-        disableChildToggle.onValueChanged.AddListener(OnDisableChildToggleChanged);
     }
 
     void InstantiateZipcodeGameObject(ZipcodeData zipcodeData, Vector3 position)
@@ -133,93 +125,16 @@ public class InstantiateZipcodes : MonoBehaviour
             ? zipcodeCityMap[zipcodeData.ZIPCODE]
             : "Unknown City";
 
-        zipcodeObject.name = $"{cityName}";
+        zipcodeObject.name = $"{cityName.ToLower()}";
 
         TextMeshPro textMesh = zipcodeObject.GetComponentInChildren<TextMeshPro>();
         if (textMesh != null)
         {
-            textMesh.text = $"{cityName}";
+            textMesh.text = $"Stad: {cityName}";
         }
 
         zipcodeObjects.Add((zipcodeObject, heightValue, ageValue));
 
         zipcodeObject.transform.localScale = new Vector3(1, 1, 1);
-    }
-
-    void OnScaleToggleChanged(bool isScaled, float minHeight, float maxHeight)
-    {
-        foreach (var (zipcodeObject, heightValue, _) in zipcodeObjects)
-        {
-            Vector3 scale = zipcodeObject.transform.localScale;
-
-            TextMeshPro textMesh = zipcodeObject.GetComponentInChildren<TextMeshPro>();
-            if (isScaled)
-            {
-                float normalizedScale = Mathf.Lerp(1f, 2f, (heightValue - minHeight) / (maxHeight - minHeight));
-                scale.y = normalizedScale;
-
-                if (textMesh != null)
-                {
-                    textMesh.text += $"\nHeight: {heightValue / 100f:F2} cm";
-                }
-            }
-            else
-            {
-                scale.y = 1f;
-
-                if (textMesh != null)
-                {
-                    textMesh.text = textMesh.text.Replace($"\nHeight: {heightValue / 100f:F2} cm", "");
-                }
-            }
-
-            zipcodeObject.transform.localScale = scale;
-        }
-    }
-
-    void OnDisableChildToggleChanged(bool isDisabled)
-    {
-        foreach (var (zipcodeObject, _, ageValue) in zipcodeObjects)
-        {
-            Transform firstChild = zipcodeObject.transform.GetChild(0);
-            if (firstChild != null)
-            {
-                firstChild.gameObject.SetActive(!isDisabled);
-            }
-
-            Transform secondChild = zipcodeObject.transform.GetChild(1);
-            if (secondChild != null)
-            {
-                secondChild.gameObject.SetActive(isDisabled);
-
-                if (isDisabled)
-                {
-                    float normalizedAge = (ageValue - minAge) / (maxAge - minAge);
-
-                    Color interpolatedColor = Color.Lerp(Color.green, Color.red, normalizedAge);
-
-                    Renderer renderer = secondChild.GetComponent<Renderer>();
-                    if (renderer != null)
-                    {
-                        Material newMaterial = new Material(renderer.sharedMaterial);
-                        newMaterial.color = interpolatedColor;
-                        renderer.material = newMaterial;
-                    }
-                }
-            }
-
-            TextMeshPro textMesh = zipcodeObject.GetComponentInChildren<TextMeshPro>();
-            if (textMesh != null)
-            {
-                if (isDisabled)
-                {
-                    textMesh.text += $"\nAge: {ageValue / 100f:F2} jaar";
-                }
-                else
-                {
-                    textMesh.text = textMesh.text.Replace($"\nAge: {ageValue / 100f:F2} jaar", "");
-                }
-            }
-        }
     }
 }

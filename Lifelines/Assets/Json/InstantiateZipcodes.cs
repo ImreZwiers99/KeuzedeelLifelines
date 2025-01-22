@@ -125,6 +125,8 @@ public class InstantiateZipcodes : MonoBehaviour
             ? zipcodeCityMap[zipcodeData.ZIPCODE]
             : "Unknown City";
 
+        zipcodeObject.name = $"{cityName.ToLower()}";
+
         TextMeshPro textMesh = zipcodeObject.GetComponentInChildren<TextMeshPro>();
         if (textMesh != null)
         {

@@ -19,7 +19,7 @@ public class TPCity : MonoBehaviour
 
     private void Update()
     {
-        city = inputField.text;
+        city = inputField.text.ToLower();
     }
 
     public void TpToCity()
@@ -27,7 +27,7 @@ public class TPCity : MonoBehaviour
         CamRotationJoystick.currentRotation = new Vector3(50, 0, mainCamera.transform.rotation.z);
 
         cityTree = GameObject.Find(city).transform;
-        snapPoint = cityTree.FindChild("SnapPoint");
+        snapPoint = cityTree.Find("SnapPoint");
 
         mainCamera.transform.position = snapPoint.position;
     }

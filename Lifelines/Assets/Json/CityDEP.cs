@@ -9,6 +9,8 @@ public class CityDEP : MonoBehaviour
     public Toggle DEPToggle;
     private InstantiateZipcodes manager;
     public GameObject Rain;
+    public GameObject Morning;
+    public GameObject Night;
     public Material rainSky;
     public Material normalSky;
 
@@ -44,11 +46,15 @@ public class CityDEP : MonoBehaviour
         if (isToggled)
         {
             Rain.SetActive(true);
+            Morning.SetActive(false);
+            Night.SetActive(true);
             RenderSettings.skybox = normalSky;
         }
         else
         {
             Rain.SetActive(false);
+            Morning.SetActive(true);
+            Night.SetActive(false);
             RenderSettings.skybox = rainSky;
         }
     }

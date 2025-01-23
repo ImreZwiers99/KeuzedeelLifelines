@@ -1,53 +1,94 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 public class CityHeight : MonoBehaviour
 {
-    public Toggle scaleToggle;
+    public Toggle heightToggle;
     private InstantiateZipcodes manager;
 
     void Start()
     {
         manager = GetComponent<InstantiateZipcodes>();
 
-        if (scaleToggle == null)
+        if (heightToggle == null)
         {
-            Debug.LogError("No toggle assigned for scaling in the Inspector.");
+            Debug.LogError("No toggle assigned for height scaling in the Inspector.");
             return;
         }
 
-        scaleToggle.onValueChanged.AddListener(OnScaleToggleChanged);
+        if (manager.minHeight == float.MaxValue || manager.maxHeight == float.MinValue)
+        {
+            Debug.LogWarning("Height values not properly initialized in the InstantiateZipcodes manager.");
+        }
+        else
+        {
+            Debug.Log($"Min Height: {manager.minHeight}, Max Height: {manager.maxHeight}");
+        }
+
+        heightToggle.onValueChanged.AddListener(OnHeightToggleChanged);
     }
 
-    void OnScaleToggleChanged(bool isScaled)
+    void OnHeightToggleChanged(bool isScaled)
     {
-        foreach (var (zipcodeObject, heightValue, _) in manager.zipcodeObjects)
+        foreach (var (zipcodeObject, heightValue, _, _, _) in manager.zipcodeObjects)
         {
-            Vector3 scale = zipcodeObject.transform.localScale;
+            Transform treeTransform = zipcodeObject.transform.GetChild(0);
+            if (treeTransform == null) continue;
+
+            Transform child1 = zipcodeObject.transform.GetChild(1);
+
+            Vector3 treeScale = treeTransform.localScale;
+
+            Vector3 child1Position = child1.localPosition;
 
             TextMeshPro textMesh = zipcodeObject.GetComponentInChildren<TextMeshPro>();
+
             if (isScaled)
             {
-                float normalizedScale = Mathf.Lerp(1f, 2f, (heightValue - manager.minHeight) / (manager.maxHeight - manager.minHeight));
-                scale.y = normalizedScale;
+                float normalizedHeight = 0f;
+                if (manager.maxHeight != manager.minHeight)
+                {
+                    normalizedHeight = (heightValue - manager.minHeight) / (manager.maxHeight - manager.minHeight);
+                }
+
+                float scaleFactor = Mathf.Lerp(1f, 2f, Mathf.Clamp01(normalizedHeight));
+
+                treeScale.y = scaleFactor;
+
+                if (child1 != null)
+                {
+                    child1Position.y *= scaleFactor;
+                }
 
                 if (textMesh != null)
                 {
-                    textMesh.text += $"\nLengte: {heightValue / 100f:F2} cm";
+                    textMesh.text += $"\nHeight: {heightValue / 100f:F2} cm";
                 }
             }
             else
             {
-                scale.y = 1f;
+                treeScale.y = 1f;
+
+                if (child1 != null)
+                {
+                    child1Position.y = 7f;
+                }
 
                 if (textMesh != null)
                 {
-                    textMesh.text = textMesh.text.Replace($"\nLengte: {heightValue / 100f:F2} cm", "");
+                    textMesh.text = textMesh.text.Replace($"\nHeight: {heightValue / 100f:F2} cm", "");
                 }
             }
 
-            zipcodeObject.transform.localScale = scale;
+            treeTransform.localScale = treeScale;
+            if (child1 != null)
+            {
+                child1.localPosition = child1Position;
+            }
         }
     }
+
 }

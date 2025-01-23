@@ -11,6 +11,8 @@ public class InstantiateZipcodes : MonoBehaviour
         public int ZIPCODE;
         public string HEIGHT_T1;
         public string AGE_T1;
+        public string BMI_T1;
+        public string DEPRESSION_T1;
     }
 
     [System.Serializable]
@@ -23,12 +25,16 @@ public class InstantiateZipcodes : MonoBehaviour
     public GameObject zipcodePrefab;
 
     [HideInInspector]
-    public List<(GameObject, float, float)> zipcodeObjects = new List<(GameObject, float, float)>();
+    public List<(GameObject, float, float, float, float)> zipcodeObjects = new List<(GameObject, float, float, float, float)>();
 
     [HideInInspector]
     public float minHeight = float.MaxValue, maxHeight = float.MinValue;
     [HideInInspector]
     public float minAge = float.MaxValue, maxAge = float.MinValue;
+    [HideInInspector]
+    public float minBMI = float.MaxValue, maxBMI = float.MinValue;
+    [HideInInspector]
+    public float minDEP = float.MaxValue, maxDEP = float.MinValue;
 
     public Dictionary<int, string> zipcodeCityMap = new Dictionary<int, string>
     {
@@ -85,21 +91,35 @@ public class InstantiateZipcodes : MonoBehaviour
         maxHeight = float.MinValue;
         minAge = float.MaxValue;
         maxAge = float.MinValue;
+        minBMI = float.MaxValue;
+        maxBMI = float.MinValue;
+        minDEP = float.MaxValue;
+        maxDEP = float.MinValue;
 
         foreach (var zipcodeData in zipcodeList.data)
         {
             float heightValue = float.Parse(zipcodeData.HEIGHT_T1.Replace(',', '.'));
             float ageValue = float.Parse(zipcodeData.AGE_T1.Replace(',', '.'));
+            float bmiValue = float.Parse(zipcodeData.BMI_T1.Replace(',', '.'));
+            float DEPValue = float.Parse(zipcodeData.DEPRESSION_T1.Replace(',', '.'));
 
             if (heightValue < minHeight) minHeight = heightValue;
             if (heightValue > maxHeight) maxHeight = heightValue;
 
             if (ageValue < minAge) minAge = ageValue;
             if (ageValue > maxAge) maxAge = ageValue;
+
+            if (bmiValue < minBMI) minBMI = bmiValue;
+            if (bmiValue > maxBMI) maxBMI = bmiValue;
+
+            if (DEPValue < minDEP) minDEP = DEPValue;
+            if (DEPValue > maxDEP) maxDEP = DEPValue;
         }
 
         Debug.Log($"Min Height: {minHeight}, Max Height: {maxHeight}");
         Debug.Log($"Min Age: {minAge}, Max Age: {maxAge}");
+        Debug.Log($"Min BMI: {minBMI}, Max BMI: {maxBMI}");
+        Debug.Log($"Min DEP: {minDEP}, Max DEP: {maxDEP}");
 
         Vector3 startPosition = new Vector3(0, 0, 0);
         float xOffset = 10f;
@@ -118,6 +138,8 @@ public class InstantiateZipcodes : MonoBehaviour
     {
         float heightValue = float.Parse(zipcodeData.HEIGHT_T1.Replace(',', '.'));
         float ageValue = float.Parse(zipcodeData.AGE_T1.Replace(',', '.'));
+        float bmiValue = float.Parse(zipcodeData.BMI_T1.Replace(',', '.'));
+        float DEPValue = float.Parse(zipcodeData.DEPRESSION_T1.Replace(',', '.'));
 
         GameObject zipcodeObject = Instantiate(zipcodePrefab, position, Quaternion.identity, transform);
 
@@ -125,15 +147,15 @@ public class InstantiateZipcodes : MonoBehaviour
             ? zipcodeCityMap[zipcodeData.ZIPCODE]
             : "Unknown City";
 
-        zipcodeObject.name = $"{cityName.ToLower()}";
-
         TextMeshPro textMesh = zipcodeObject.GetComponentInChildren<TextMeshPro>();
         if (textMesh != null)
         {
             textMesh.text = $"Stad: {cityName}";
         }
 
-        zipcodeObjects.Add((zipcodeObject, heightValue, ageValue));
+        zipcodeObject.name = $"{cityName.ToLower()}";
+
+        zipcodeObjects.Add((zipcodeObject, heightValue, ageValue, bmiValue, DEPValue));
 
         zipcodeObject.transform.localScale = new Vector3(1, 1, 1);
     }

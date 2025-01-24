@@ -23,22 +23,24 @@ public class CityDEP : MonoBehaviour
 
     void OnDEPToggleChanged(bool isToggled)
     {
-        foreach (var (zipcodeObject, _, _, _, DEPValue) in manager.zipcodeObjects)
+        var allZipcodes = FindObjectsOfType<ZipcodeDataComponent>();
+
+        foreach (var dataComponent in allZipcodes)
         {
-            TextMeshPro textMesh = zipcodeObject.GetComponentInChildren<TextMeshPro>();
+            TextMeshPro textMesh = dataComponent.GetComponentInChildren<TextMeshPro>();
 
             if (isToggled)
             {
                 if (textMesh != null)
                 {
-                    textMesh.text += $"\nDepressief: {DEPValue / 100f:F2}%";
+                    textMesh.text += $"\nDepressief: {dataComponent.depressionValue / 100f:F2}%";
                 }
             }
             else
             {
                 if (textMesh != null)
                 {
-                    textMesh.text = textMesh.text.Replace($"\nDepressief: {DEPValue / 100f:F2}%", "");
+                    textMesh.text = textMesh.text.Replace($"\nDepressief: {dataComponent.depressionValue / 100f:F2}%", "");
                 }
             }
         }

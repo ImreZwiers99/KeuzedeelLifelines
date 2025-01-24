@@ -22,9 +22,11 @@ public class CityAge : MonoBehaviour
 
     void OnDisableChildToggleChanged(bool isDisabled)
     {
-        foreach (var (zipcodeObject, _, ageValue, _, _) in manager.zipcodeObjects)
+        var allZipcodes = FindObjectsOfType<ZipcodeDataComponent>();
+
+        foreach (var dataComponent in allZipcodes)
         {
-            Transform treeTransform = zipcodeObject.transform.GetChild(0);
+            Transform treeTransform = dataComponent.transform.GetChild(0);
             if (treeTransform == null) continue;
 
             Transform child0 = treeTransform.GetChild(0);
@@ -41,7 +43,7 @@ public class CityAge : MonoBehaviour
 
                 if (isDisabled)
                 {
-                    float normalizedAge = (ageValue - manager.minAge) / (manager.maxAge - manager.minAge);
+                    float normalizedAge = (dataComponent.ageValue - manager.minAge) / (manager.maxAge - manager.minAge);
                     Color interpolatedColor = Color.Lerp(Color.green, Color.red, Mathf.Clamp01(normalizedAge));
 
                     Renderer renderer = child1.GetComponent<Renderer>();
@@ -53,16 +55,16 @@ public class CityAge : MonoBehaviour
                     }
                 }
             }
-            TextMeshPro textMesh = zipcodeObject.GetComponentInChildren<TextMeshPro>();
+            TextMeshPro textMesh = dataComponent.GetComponentInChildren<TextMeshPro>();
             if (textMesh != null)
             {
                 if (isDisabled)
                 {
-                    textMesh.text += $"\nLeeftijd: {ageValue / 100f:F2} jaar";
+                    textMesh.text += $"\nLeeftijd: {dataComponent.ageValue / 100f:F2} jaar";
                 }
                 else
                 {
-                    textMesh.text = textMesh.text.Replace($"\nLeeftijd: {ageValue / 100f:F2} jaar", "");
+                    textMesh.text = textMesh.text.Replace($"\nLeeftijd: {dataComponent.ageValue / 100f:F2} jaar", "");
                 }
             }
         }

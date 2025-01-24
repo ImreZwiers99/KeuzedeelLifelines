@@ -1,0 +1,63 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public class CityDEP : MonoBehaviour
+{
+    public Toggle DEPToggle;
+    private InstantiateZipcodes manager;
+    public GameObject Rain;
+    public GameObject Morning;
+    public GameObject Night;
+    public Material rainSky;
+    public Material normalSky;
+
+    void Start()
+    {
+        manager = GetComponent<InstantiateZipcodes>();
+
+        DEPToggle.onValueChanged.AddListener(OnDEPToggleChanged);
+    }
+
+    void OnDEPToggleChanged(bool isToggled)
+    {
+        var allZipcodes = FindObjectsOfType<ZipcodeDataComponent>();
+
+        foreach (var dataComponent in allZipcodes)
+        {
+            TextMeshPro textMesh = dataComponent.GetComponentInChildren<TextMeshPro>();
+
+            if (isToggled)
+            {
+                if (textMesh != null)
+                {
+                    textMesh.text += $"\nDepressief: {dataComponent.depressionValue / 100f:F2}%";
+                }
+            }
+            else
+            {
+                if (textMesh != null)
+                {
+                    textMesh.text = textMesh.text.Replace($"\nDepressief: {dataComponent.depressionValue / 100f:F2}%", "");
+                }
+            }
+        }
+
+        if (isToggled)
+        {
+            Rain.SetActive(true);
+            Morning.SetActive(false);
+            Night.SetActive(true);
+            RenderSettings.skybox = normalSky;
+        }
+        else
+        {
+            Rain.SetActive(false);
+            Morning.SetActive(true);
+            Night.SetActive(false);
+            RenderSettings.skybox = rainSky;
+        }
+    }
+}

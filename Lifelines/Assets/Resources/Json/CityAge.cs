@@ -22,25 +22,31 @@ public class CityAge : MonoBehaviour
 
     void OnDisableChildToggleChanged(bool isDisabled)
     {
-        foreach (var (zipcodeObject, _, ageValue) in manager.zipcodeObjects)
+        var allZipcodes = FindObjectsOfType<ZipcodeDataComponent>();
+
+        foreach (var dataComponent in allZipcodes)
         {
-            Transform firstChild = zipcodeObject.transform.GetChild(0);
-            if (firstChild != null)
+            Transform treeTransform = dataComponent.transform.GetChild(0);
+            if (treeTransform == null) continue;
+
+            Transform child0 = treeTransform.GetChild(0);
+            Transform child1 = treeTransform.GetChild(1);
+
+            if (child0 != null)
             {
-                firstChild.gameObject.SetActive(!isDisabled);
+                child0.gameObject.SetActive(!isDisabled);
             }
 
-            Transform secondChild = zipcodeObject.transform.GetChild(1);
-            if (secondChild != null)
+            if (child1 != null)
             {
-                secondChild.gameObject.SetActive(isDisabled);
+                child1.gameObject.SetActive(isDisabled);
 
                 if (isDisabled)
                 {
-                    float normalizedAge = (ageValue - manager.minAge) / (manager.maxAge - manager.minAge);
+                    float normalizedAge = (dataComponent.ageValue - manager.minAge) / (manager.maxAge - manager.minAge);
                     Color interpolatedColor = Color.Lerp(Color.green, Color.red, Mathf.Clamp01(normalizedAge));
 
-                    Renderer renderer = secondChild.GetComponent<Renderer>();
+                    Renderer renderer = child1.GetComponent<Renderer>();
                     if (renderer != null)
                     {
                         Material newMaterial = new Material(renderer.sharedMaterial);
@@ -49,17 +55,16 @@ public class CityAge : MonoBehaviour
                     }
                 }
             }
-
-            TextMeshPro textMesh = zipcodeObject.GetComponentInChildren<TextMeshPro>();
+            TextMeshPro textMesh = dataComponent.GetComponentInChildren<TextMeshPro>();
             if (textMesh != null)
             {
                 if (isDisabled)
                 {
-                    textMesh.text += $"\nLeeftijd: {ageValue / 100f:F2} jaar";
+                    textMesh.text += $"\nLeeftijd: {dataComponent.ageValue / 100f:F2} jaar";
                 }
                 else
                 {
-                    textMesh.text = textMesh.text.Replace($"\nLeeftijd: {ageValue / 100f:F2} jaar", "");
+                    textMesh.text = textMesh.text.Replace($"\nLeeftijd: {dataComponent.ageValue / 100f:F2} jaar", "");
                 }
             }
         }

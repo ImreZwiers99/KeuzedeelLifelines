@@ -22,13 +22,15 @@ public class TPCity : MonoBehaviour
         city = inputField.text.ToLower();
     }
 
-    public void TpToCity()
+    public void TpToCity(Transform TpPoint)
     {
         CamRotationJoystick.currentRotation = new Vector3(50, 0, mainCamera.transform.rotation.z);
 
         cityTree = GameObject.Find(city).transform;
         snapPoint = cityTree.Find("SnapPoint");
 
-        mainCamera.transform.position = snapPoint.position;
+        TpPoint.position = snapPoint.position;
+
+        mainCamera.transform.position = TpPoint.position;
     }
 }

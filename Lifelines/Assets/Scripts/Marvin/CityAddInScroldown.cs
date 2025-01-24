@@ -55,11 +55,12 @@ public class CityAddInScroldown : MonoBehaviour
     {
         foreach (Transform child in cityHolder)
         {
-            GameObject newButton = Instantiate(buttonPrefab, scrollViewContent) as GameObject;
+            GameObject newButton = Instantiate(buttonPrefab, scrollViewContent);
 
-            Text buttonText = newButton.GetComponentInChildren<Text>();
+            TMP_Text buttonText = newButton.GetComponentInChildren<TextMeshProUGUI>();
             if (buttonText != null)
             {
+                print("test");
                 buttonText.text = child.name;
             }
 

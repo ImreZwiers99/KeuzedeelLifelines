@@ -11,6 +11,7 @@ public class CityAddInScroldown : MonoBehaviour
     public TMP_InputField searchBar;
     public Transform scrollViewContent;
     public GameObject buttonPrefab;
+    public GameObject noResultsText;
 
     [SerializeField] private Transform cityHolder;
     [SerializeField] private List<GameObject> cityList = new List<GameObject>();
@@ -19,6 +20,8 @@ public class CityAddInScroldown : MonoBehaviour
     void Start()
     {
         StartCoroutine(FillCityListWithDelay());
+
+        searchBar.onValueChanged.AddListener(FilterCities);
     }
 
     private IEnumerator FillCityListWithDelay()
@@ -55,15 +58,15 @@ public class CityAddInScroldown : MonoBehaviour
     {
         foreach (Transform child in cityHolder)
         {
-            GameObject newButton = Instantiate(buttonPrefab, scrollViewContent) as GameObject;
+            GameObject newButton = Instantiate(buttonPrefab, scrollViewContent);
 
-            Text buttonText = newButton.GetComponentInChildren<Text>();
+            TMP_Text buttonText = newButton.GetComponentInChildren<TextMeshProUGUI>();
+            Button button = newButton.GetComponent<Button>();
             if (buttonText != null)
             {
                 buttonText.text = child.name;
             }
 
-            Button button = newButton.GetComponent<Button>();
             if (button != null)
             {
                 button.onClick.AddListener(() => OnCityButtonClicked(child.gameObject));
@@ -73,6 +76,44 @@ public class CityAddInScroldown : MonoBehaviour
 
     private void OnCityButtonClicked(GameObject city)
     {
-       
+        Transform snapPoint = city.transform.Find("SnapPoint");
+        if (snapPoint != null)
+        {
+            Camera.main.transform.position = snapPoint.position;
+            Camera.main.transform.LookAt(city.transform);
+            Debug.Log("Camera geteleporteerd naar: " + city.name);
+        }
+        else
+        {
+            Debug.LogWarning("Geen SnapPoint gevonden voor stad: " + city.name);
+        }
     }
+    private void FilterCities(string input)
+    {
+        input = input.ToLower(); // Zet de input in kleine letters voor een case-insensitive vergelijking.
+        bool hasResults = false;
+
+        foreach (Transform button in scrollViewContent)
+        {
+            TMP_Text buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
+            if (buttonText != null)
+            {
+                // Controleer of de tekst begint met dezelfde letters in de juiste volgorde.
+                bool isVisible = string.IsNullOrEmpty(input) || buttonText.text.ToLower().StartsWith(input);
+                button.gameObject.SetActive(isVisible);
+
+                if (isVisible)
+                {
+                    hasResults = true;
+                }
+            }
+        }
+
+        // Toon of verberg de "Geen resultaten"-tekst.
+        if (noResultsText != null)
+        {
+            noResultsText.SetActive(!hasResults);
+        }
+    }
+    
 }

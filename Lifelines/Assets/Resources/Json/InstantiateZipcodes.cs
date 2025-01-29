@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+[ExecuteInEditMode]
 public class InstantiateZipcodes : MonoBehaviour
 {
     [System.Serializable]
@@ -72,6 +73,17 @@ public class InstantiateZipcodes : MonoBehaviour
 
     void Start()
     {
+        var allZipcodes = FindObjectsOfType<ZipcodeDataComponent>();
+
+        minHeight = float.MaxValue;
+        maxHeight = float.MinValue;
+
+        foreach (var dataComponent in allZipcodes)
+        {
+            if (dataComponent.heightValue < minHeight) minHeight = dataComponent.heightValue;
+            if (dataComponent.heightValue > maxHeight) maxHeight = dataComponent.heightValue;
+        }
+
         if (zipcodePrefab == null)
         {
             Debug.LogError("No prefab assigned to 'zipcodePrefab' in the Inspector.");
@@ -141,22 +153,51 @@ public class InstantiateZipcodes : MonoBehaviour
         float bmiValue = float.Parse(zipcodeData.BMI_T1.Replace(',', '.'));
         float DEPValue = float.Parse(zipcodeData.DEPRESSION_T1.Replace(',', '.'));
 
-        GameObject zipcodeObject = Instantiate(zipcodePrefab, position, Quaternion.identity, transform);
-
+        // Check if the object for this city already exists
         string cityName = zipcodeCityMap.ContainsKey(zipcodeData.ZIPCODE)
             ? zipcodeCityMap[zipcodeData.ZIPCODE]
             : "Unknown City";
 
+        string objectName = $"{cityName.ToLower()}";
+        GameObject existingObject = GameObject.Find(objectName);
+
+        if (existingObject != null)
+        {
+            Debug.Log($"Object for city '{cityName}' already exists, skipping instantiation.");
+            return;
+        }
+
+        // Load the prefab and instantiate
+        GameObject prefab = Resources.Load<GameObject>("Json/Cube");
+        if (prefab == null)
+        {
+            Debug.LogError("Prefab not found! Ensure the prefab is in Resources/Json and the path is correct.");
+            return;
+        }
+
+        GameObject zipcodeObject = Instantiate(prefab, position, Quaternion.identity, transform);
+        zipcodeObject.name = objectName;
+
+        var dataComponent = zipcodeObject.AddComponent<ZipcodeDataComponent>();
+        dataComponent.zipcode = zipcodeData.ZIPCODE;
+        dataComponent.heightValue = heightValue;
+        dataComponent.ageValue = ageValue;
+        dataComponent.bmiValue = bmiValue;
+        dataComponent.depressionValue = DEPValue;
+
+        // Update TextMeshPro text
         TextMeshPro textMesh = zipcodeObject.GetComponentInChildren<TextMeshPro>();
         if (textMesh != null)
         {
             textMesh.text = $"Stad: {cityName}";
         }
 
-        zipcodeObject.name = $"{cityName.ToLower()}";
-
+        // Add the object and its values to the list
         zipcodeObjects.Add((zipcodeObject, heightValue, ageValue, bmiValue, DEPValue));
 
+        // Set default scale
         zipcodeObject.transform.localScale = new Vector3(1, 1, 1);
+
+        Debug.Log($"Successfully instantiated object for city: {cityName}");
     }
 }

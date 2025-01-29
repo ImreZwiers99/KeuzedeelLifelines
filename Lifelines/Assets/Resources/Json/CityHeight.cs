@@ -33,25 +33,27 @@ public class CityHeight : MonoBehaviour
 
     void OnHeightToggleChanged(bool isScaled)
     {
-        foreach (var (zipcodeObject, heightValue, _, _, _) in manager.zipcodeObjects)
+        var allZipcodes = FindObjectsOfType<ZipcodeDataComponent>();
+
+        foreach (var dataComponent in allZipcodes)
         {
-            Transform treeTransform = zipcodeObject.transform.GetChild(0);
+            Transform treeTransform = dataComponent.transform.GetChild(0);
             if (treeTransform == null) continue;
 
-            Transform child1 = zipcodeObject.transform.GetChild(1);
+            Transform child1 = dataComponent.transform.GetChild(1);
 
             Vector3 treeScale = treeTransform.localScale;
 
             Vector3 child1Position = child1.localPosition;
 
-            TextMeshPro textMesh = zipcodeObject.GetComponentInChildren<TextMeshPro>();
+            TextMeshPro textMesh = dataComponent.GetComponentInChildren<TextMeshPro>();
 
             if (isScaled)
             {
                 float normalizedHeight = 0f;
                 if (manager.maxHeight != manager.minHeight)
                 {
-                    normalizedHeight = (heightValue - manager.minHeight) / (manager.maxHeight - manager.minHeight);
+                    normalizedHeight = (dataComponent.heightValue - manager.minHeight) / (manager.maxHeight - manager.minHeight);
                 }
 
                 float scaleFactor = Mathf.Lerp(1f, 2f, Mathf.Clamp01(normalizedHeight));
@@ -65,7 +67,7 @@ public class CityHeight : MonoBehaviour
 
                 if (textMesh != null)
                 {
-                    textMesh.text += $"\nHeight: {heightValue / 100f:F2} cm";
+                    textMesh.text += $"\nHeight: {dataComponent.heightValue / 100f:F2} cm";
                 }
             }
             else
@@ -79,7 +81,7 @@ public class CityHeight : MonoBehaviour
 
                 if (textMesh != null)
                 {
-                    textMesh.text = textMesh.text.Replace($"\nHeight: {heightValue / 100f:F2} cm", "");
+                    textMesh.text = textMesh.text.Replace($"\nHeight: {dataComponent.heightValue / 100f:F2} cm", "");
                 }
             }
 

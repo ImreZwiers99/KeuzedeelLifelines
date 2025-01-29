@@ -33,20 +33,22 @@ public class CityBMI : MonoBehaviour
 
     void OnBMIToggleChanged(bool isScaled)
     {
-        foreach (var (zipcodeObject, _, _, bmiValue, _) in manager.zipcodeObjects)
+        var allZipcodes = FindObjectsOfType<ZipcodeDataComponent>();
+
+        foreach (var dataComponent in allZipcodes)
         {
-            Transform treeTransform = zipcodeObject.transform.GetChild(0);
+            Transform treeTransform = dataComponent.transform.GetChild(0);
             if (treeTransform == null) continue;
 
             Vector3 scale = treeTransform.localScale;
-            TextMeshPro textMesh = zipcodeObject.GetComponentInChildren<TextMeshPro>();
+            TextMeshPro textMesh = dataComponent.GetComponentInChildren<TextMeshPro>();
 
             if (isScaled)
             {
                 float normalizedBMI = 0f;
                 if (manager.maxBMI != manager.minBMI)
                 {
-                    normalizedBMI = (bmiValue - manager.minBMI) / (manager.maxBMI - manager.minBMI);
+                    normalizedBMI = (dataComponent.bmiValue - manager.minBMI) / (manager.maxBMI - manager.minBMI);
                 }
 
                 float scaleFactor = Mathf.Lerp(1f, 2f, Mathf.Clamp01(normalizedBMI));
@@ -55,7 +57,7 @@ public class CityBMI : MonoBehaviour
 
                 if (textMesh != null)
                 {
-                    textMesh.text += $"\nBMI: {bmiValue / 100f:F2}";
+                    textMesh.text += $"\nBMI: {dataComponent.bmiValue / 100f:F2}";
                 }
             }
             else
@@ -65,7 +67,7 @@ public class CityBMI : MonoBehaviour
 
                 if (textMesh != null)
                 {
-                    textMesh.text = textMesh.text.Replace($"\nBMI: {bmiValue / 100f:F2}", "");
+                    textMesh.text = textMesh.text.Replace($"\nBMI: {dataComponent.bmiValue / 100f:F2}", "");
                 }
             }
 
